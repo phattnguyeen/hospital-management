@@ -25,7 +25,7 @@ This project is a web application for managing hospital operations, including pa
 
 1. Clone the repository:
     ```bash
-    https://github.com/PhatNguyen3174/hospital-management.git
+    git clone https://github.com/PhatNguyen3174/hospital-management.git
     ```
 2. Navigate to the project directory:
     ```bash
@@ -38,7 +38,7 @@ This project is a web application for managing hospital operations, including pa
     ```
 4. Install the dependencies for the backend:
     ```bash
-    cd .hospital-management-backend
+    cd hospital-management-backend
     pip install -r requirements.txt
     ```
 
@@ -75,7 +75,5 @@ For any inquiries, please contact us at [phatnguyen9712@gmail.com](mailto:phatng
 ## References
 
 - Khan, R.S. and Saber, M., 2010. Design of a hospital-based database system (A case study of BIRDEM). International Journal on Computer Science and Engineering (IJCSE), 2(08), pp.2616-2621.
-
 - Usoh, M.A., Udoiwod, E.N. and Chinemenma, I.S., 2022. Development of a Hospital Management Software for a Primary Healthcare Centre. Development, 9(9).
-
-- [https://hoanmy.com/en/]Hoan My Hospital 
+- [Hoan My Hospital](https://hoanmy.com/en/)

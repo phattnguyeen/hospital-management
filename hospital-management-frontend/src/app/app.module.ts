@@ -9,6 +9,7 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CoreModule } from './core/core.module';
 import { NavbarModule } from './navbar/navbar.module';
+import { AccountModule } from './account/account.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { NavbarModule } from './navbar/navbar.module';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-    NavbarModule
+    NavbarModule,
+    AccountModule
   ],
   providers: [],
   bootstrap: [AppComponent]

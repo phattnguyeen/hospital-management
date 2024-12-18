@@ -77,3 +77,4 @@ For any inquiries, please contact us at [phatnguyen9712@gmail.com](mailto:phatng
 - Khan, R.S. and Saber, M., 2010. Design of a hospital-based database system (A case study of BIRDEM). International Journal on Computer Science and Engineering (IJCSE), 2(08), pp.2616-2621.
 - Usoh, M.A., Udoiwod, E.N. and Chinemenma, I.S., 2022. Development of a Hospital Management Software for a Primary Healthcare Centre. Development, 9(9).
 - [Hoan My Hospital](https://hoanmy.com/en/)
+- [Hospital / Health Care center 3D WalkThrough Animation by Frame Channel](https://www.youtube.com/watch?v=e89J3eW4a24)

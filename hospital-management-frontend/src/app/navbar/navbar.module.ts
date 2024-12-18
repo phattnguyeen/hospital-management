@@ -4,6 +4,9 @@ import { HeaderNavComponent } from './header-nav/header-nav.component';
 import { RouterModule } from '@angular/router';
 import { FooterNavComponent } from './footer-nav/footer-nav.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
+import { DoctorNavComponent } from './doctor-nav/doctor-nav.component';
+import { AppointmentNavComponent } from './appointment-nav/appointment-nav.component';
+import { BlogNavComponent } from './blog-nav/blog-nav.component';
 
 
 
@@ -11,7 +14,10 @@ import { MainNavComponent } from './main-nav/main-nav.component';
   declarations: [
     HeaderNavComponent,
     FooterNavComponent,
-    MainNavComponent
+    MainNavComponent,
+    DoctorNavComponent,
+    AppointmentNavComponent,
+    BlogNavComponent
   ],
   imports: [
     CommonModule

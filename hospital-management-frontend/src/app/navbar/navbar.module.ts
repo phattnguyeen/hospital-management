@@ -25,8 +25,10 @@ import { BlogNavComponent } from './blog-nav/blog-nav.component';
   exports: [
     HeaderNavComponent,
     FooterNavComponent,
-    MainNavComponent
-
+    MainNavComponent,
+    DoctorNavComponent,
+    AppointmentNavComponent,
+    BlogNavComponent
   ]
 })
 export class NavbarModule { }

@@ -40,6 +40,21 @@
   <script src="assets/lib/tempusdominus/js/moment-timezone.min.js"></script>
   <script src="assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var video = document.getElementById('background-video');
+      if (video) {
+        var playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.then(_ => {
+            // Automatic playback started!
+          }).catch(error => {
+            console.error('Error attempting to play video:', error);
+          });
+        }
+      }
+    });
+  </script>
+  <script>
     $(document).ready(function() {
       $(".owl-carousel").owlCarousel({
         loop: true,
@@ -51,6 +66,7 @@
       });
     });
   </script>
+
 
   <!-- Template Javascript -->
   <script src="assets/js/main.js"></script>

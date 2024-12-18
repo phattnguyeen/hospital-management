@@ -69,6 +69,43 @@
     text-align: center;
   }
 
+  .small-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.booking__group--title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: inline-block;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #007bff;
+}
+
+.small-text {
+    font-size: 0.9rem;
+}
+
+.small-button {
+    font-size: 0.85rem;
+}
+
+img.img-fluid {
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.shadow-lg {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+
+
 
 /*** Button ***/
 .btn {
@@ -95,6 +132,17 @@
     width: 48px;
     height: 48px;
 }
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    font-size: 0.9rem;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
 
 .btn-square,
 .btn-sm-square,

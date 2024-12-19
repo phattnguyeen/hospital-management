@@ -460,6 +460,176 @@
   color: var(--dark);
 }
 
+/*** Login ***/
+/* Wrapper and layout Login */
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
+}
+
+.auth-content {
+  width: 100%;
+  max-width: 850px;
+  padding: 15px;
+}
+
+.card {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevent content spill */
+}
+
+/* Wrapper and layout */
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #ffffff; /* Set background to white */
+}
+
+.auth-content {
+  width: 100%;
+  max-width: 850px;
+  padding: 15px;
+}
+
+.card {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevent content spill */
+  background: #ffffff; /* Ensure the card itself is white */
+}
+
+/* Carousel images in left section */
+.auth-bg {
+  background: #f8f9fa;
+}
+
+.owl-carousel .owl-item img {
+  border-radius: 16px 0 0 16px;
+  object-fit: cover;
+}
+
+/* Input field styling */
+.form-control {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  background: #ffffff;
+}
+
+/* Input group icon container */
+.input-group-text {
+  background: #f8f9fa;
+  border: none;
+  border-radius: 12px;
+  color: #6c757d;
+  padding: 10px;
+}
+
+/* Button styling */
+.btn-primary {
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 12px;
+  background-color: #007bff;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  box-shadow: 0px 4px 16px rgba(0, 123, 255, 0.4);
+}
+
+/* Password toggle button */
+#toggle-password {
+  cursor: pointer;
+  color: #6c757d;
+  background: #f8f9fa;
+  border: none;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+/* Links and other text */
+.text-muted a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.text-muted a:hover {
+  text-decoration: underline;
+}
+
+/* Card title */
+.card-body h3 {
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #343a40;
+  text-transform: capitalize;
+  text-align: center;
+}
+
+/* For smaller screens */
+@media (max-width: 768px) {
+  .auth-wrapper {
+    padding: 20px;
+  }
+  .auth-content {
+    max-width: 100%;
+  }
+  .auth-bg {
+    display: none;
+  }
+}
+
+.dashboard-wrapper {
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.toolbar-item {
+  display: flex;
+  align-items: center;
+}
+
+.toolbar-item label {
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.form-select {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  background-color: #ffffff;
+}
+
+.chart-container {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 /*** Footer ***/
 .footer .btn.btn-social {
@@ -517,3 +687,6 @@
 .footer .copyright a:hover {
   color: var(--primary);
 }
+
+
+

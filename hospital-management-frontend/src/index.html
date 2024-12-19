@@ -41,18 +41,32 @@
   <script src="assets/lib/tempusdominus/js/moment-timezone.min.js"></script>
   <script src="assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var video = document.getElementById('background-video');
-      if (video) {
+    document.addEventListener('DOMContentLoaded', function () {
+    var video = document.getElementById('background-video');
+    if (video) {
+        // Set necessary attributes to ensure autoplay
+        video.muted = true; // Muted is required for autoplay in modern browsers
+        video.loop = true; // Ensure the video repeats
+        video.playsInline = true; // Ensure autoplay works on mobile devices
+
+        // Attempt to play the video
         var playPromise = video.play();
         if (playPromise !== undefined) {
-          playPromise.then(_ => {
-            // Automatic playback started!
-          }).catch(error => {
-            console.error('Error attempting to play video:', error);
-          });
+            playPromise
+                .then(() => {
+                    console.log('Video autoplayed successfully!');
+                })
+                .catch(error => {
+                    console.warn('Autoplay blocked. Adding click listener to play:', error);
+                    // Add a click listener to handle browsers requiring interaction
+                    document.addEventListener('click', function handleInteraction() {
+                        video.play().catch(err => console.error('Error attempting to play video:', err));
+                        // Remove listener after interaction
+                        document.removeEventListener('click', handleInteraction);
+                    });
+                });
         }
-      }
+    }
 
       // Toggle password visibility
       const togglePassword = document.getElementById('toggle-password');

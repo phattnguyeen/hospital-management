@@ -303,16 +303,6 @@ img.img-fluid {
   text-decoration: underline;
 }
 
-/* Rounded borders for form and buttons */
-.input-group .form-control,
-.btn {
-    border-radius: 25px;
-}
-
-.card {
-    border-radius: 25px;
-}
-
 
 
 

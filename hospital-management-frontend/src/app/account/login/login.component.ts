@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    initThreeScene(this.threeContainer.nativeElement);
+    if (this.threeContainer) {
+      initThreeScene(this.threeContainer.nativeElement);
+    }
   }
 }

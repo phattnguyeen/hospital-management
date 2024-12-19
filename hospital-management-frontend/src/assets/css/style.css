@@ -108,16 +108,6 @@
     margin-bottom: 20px;
 }
 
-/* Rounded borders for form and buttons */
-.input-group .form-control,
-.btn {
-    border-radius: 25px;
-}
-
-.card {
-    border-radius: 25px;
-}
-
 
 /*** Spinner ***/
 #spinner {
@@ -320,7 +310,7 @@ img.img-fluid {
 }
 
 .card {
-    border-radius: 50px;
+    border-radius: 25px;
 }
 
 

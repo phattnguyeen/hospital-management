@@ -19,7 +19,7 @@ This project is a web application for managing hospital operations, including pa
 - JavaScript
 - Node.js
 - Express.js
-- MongoDB
+- PostgreSQL (Database)
 
 ## Installation
 
@@ -42,31 +42,39 @@ This project is a web application for managing hospital operations, including pa
     pip install -r requirements.txt
     ```
 
+## Setting Up the Database
+
+1. Ensure PostgreSQL is installed and running on your machine.
+2. Create a new PostgreSQL database:
+    ```bash
+    createdb hospital_management
+    ```
+3. Run the SQL script to set up the database schema and initial data:
+    ```bash
+    psql -d hospital_management -f database/hostpital_data.sql
+    ```
+
 ## Running the Application
 
-1. Start the MongoDB server:
-    ```bash
-    mongod
-    ```
-2. Start the backend server:
+1. Start the backend server:
     ```bash
     cd hospital-management-backend
     python app.py
     ```
-3. Start the frontend server:
+2. Start the frontend server:
     ```bash
     cd hospital-management-frontend
     ng serve
     ```
-4. Open your web browser and go to `http://localhost:4200`
+3. Open your web browser and go to `http://localhost:4200`
 
 ## Contributing
 
-Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) first.
+Contributions are welcome! Please read the contributing guidelines first.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE.md)  file for details.
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 ## Contact
 

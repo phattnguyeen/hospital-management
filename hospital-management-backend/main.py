@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
+from datetime import date
 from database import SessionLocal
 from models import Patient
 
@@ -15,21 +16,21 @@ class PatientCreate(BaseModel):
     address: str = Field(None)
     patient_type: str = Field(None)
     sex: str = Field(None)
-    admit_date: str = Field(None)
-    discharge_date: str = Field(None)
+    admit_date: date = Field(None)
+    discharge_date: date = Field(None)
 
-# class PatientUpdate(BaseModel):
-#     name: str = Field(None, example="John Doe")
-#     age: int = Field(None, ge=0, example=30)
-#     password: str = Field(None, min_length=6, example="secure123")
-#     phone_no: str = Field(None, example="123-456-7890")
-#     address: str = Field(None, example="123 Main St")
-#     patient_type: str = Field(None, example="Inpatient")
-#     sex: str = Field(None, example="Male")
-#     admit_date: str = Field(None, example="2025-03-04")
-#     discharge_date: str = Field(None, example="2025-03-10")
+class PatientUpdate(BaseModel):
+    name: str = Field(None)
+    age: int = Field(None, ge=0)
+    password: str = Field(None, min_length=6)
+    phone_no: str = Field(None)
+    address: str = Field(None)
+    patient_type: str = Field(None)
+    sex: str = Field(None)
+    admit_date: date = Field(None)
+    discharge_date: date = Field(None)
 
-# ✅ Dependency for database session
+#Dependency for database session
 def get_db():
     db = SessionLocal()
     try:
@@ -56,7 +57,7 @@ def create_patient(patient: PatientCreate, db: Session = Depends(get_db)):
     return {"message": "Patient created successfully", "patient_id": new_patient.patient_id}
 
 @app.put("/patients/{patient_id}")
-def update_patient(patient_id: int, patient: PatientCreate, db: Session = Depends(get_db)):
+def update_patient(patient_id: int, patient: PatientUpdate, db: Session = Depends(get_db)):
     db_patient = db.query(Patient).filter(Patient.patient_id == patient_id).first()
     if not db_patient:
         raise HTTPException(status_code=404, detail="Patient not found")

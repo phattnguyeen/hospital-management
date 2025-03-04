@@ -4,8 +4,9 @@ from pydantic import BaseModel, Field
 from datetime import date
 from database import SessionLocal
 from models import Patient
+from uuid import UUID
 
-app = FastAPI()
+app = FastAPI(title="Patient Management API", description="API for managing patient records", version="1.0.0")
 
 # Define a Pydantic model for request validation
 class PatientCreate(BaseModel):
@@ -30,7 +31,7 @@ class PatientUpdate(BaseModel):
     admit_date: date = Field(None)
     discharge_date: date = Field(None)
 
-#Dependency for database session
+# Dependency for database session
 def get_db():
     db = SessionLocal()
     try:
@@ -38,7 +39,7 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/patients/")
+@app.post("/patients/", tags=["Patients"])
 def create_patient(patient: PatientCreate, db: Session = Depends(get_db)):
     new_patient = Patient(
         name=patient.name,
@@ -56,8 +57,8 @@ def create_patient(patient: PatientCreate, db: Session = Depends(get_db)):
     db.refresh(new_patient)
     return {"message": "Patient created successfully", "patient_id": new_patient.patient_id}
 
-@app.put("/patients/{patient_id}")
-def update_patient(patient_id: int, patient: PatientUpdate, db: Session = Depends(get_db)):
+@app.put("/patients/{patient_id}", tags=["Patients"])
+def update_patient(patient_id: UUID, patient: PatientUpdate, db: Session = Depends(get_db)):
     db_patient = db.query(Patient).filter(Patient.patient_id == patient_id).first()
     if not db_patient:
         raise HTTPException(status_code=404, detail="Patient not found")
@@ -85,8 +86,8 @@ def update_patient(patient_id: int, patient: PatientUpdate, db: Session = Depend
     db.refresh(db_patient)
     return {"message": "Patient updated successfully", "patient_id": db_patient.patient_id}
 
-@app.delete("/patients/{patient_id}")
-def delete_patient(patient_id: int, db: Session = Depends(get_db)):
+@app.delete("/patients/{patient_id}", tags=["Patients"])
+def delete_patient(patient_id: UUID, db: Session = Depends(get_db)):
     db_patient = db.query(Patient).filter(Patient.patient_id == patient_id).first()
     if not db_patient:
         raise HTTPException(status_code=404, detail="Patient not found")

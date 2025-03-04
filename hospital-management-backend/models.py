@@ -1,10 +1,12 @@
 from sqlalchemy import Column, Integer, String, Text, Date, CheckConstraint
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.sql import func
 from database import Base
 
 class Patient(Base):
     __tablename__ = "patient"
 
-    patient_id = Column(Integer, primary_key=True, index=True)
+    patient_id = Column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid(), index=True)
     name = Column(String(100), nullable=False)
     password = Column(Text, nullable=False)
     age = Column(Integer, CheckConstraint("age >= 0"))

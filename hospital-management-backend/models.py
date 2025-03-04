@@ -7,6 +7,7 @@ class Patient(Base):
     __tablename__ = "patient"
 
     patient_id = Column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid(), index=True)
+    username = Column(String(50), unique=True, nullable=False)
     name = Column(String(100), nullable=False)
     password = Column(Text, nullable=False)
     age = Column(Integer, CheckConstraint("age >= 0"))

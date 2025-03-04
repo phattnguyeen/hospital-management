@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-
-
 @NgModule({
   declarations: [
     DashboardComponent
@@ -12,7 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     CommonModule
   ],
   exports: [
-    DashboardComponent
+    DashboardComponent 
   ]
 })
 export class CoreModule { }

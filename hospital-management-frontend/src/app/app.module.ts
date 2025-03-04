@@ -11,11 +11,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { CoreModule } from './core/core.module';
 import { NavbarModule } from './navbar/navbar.module';
 import { AccountModule } from './account/account.module';
+import { LoginComponent } from './account/login/login.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

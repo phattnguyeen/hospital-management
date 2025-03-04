@@ -13,7 +13,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jwt.exceptions import InvalidTokenError
 from passlib.context import CryptContext
 from pydantic import BaseModel
-
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Patient Management API", description="API for managing patient records", version="1.0.0")
 
@@ -28,12 +28,20 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # OAuth2 scheme
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:4200"],  # Angular Frontend
+    allow_credentials=True,
+    allow_methods=["POST", "GET"],
+    allow_headers=["*"],
+)
+
 # Define a Pydantic model for request validation
 class PatientCreate(BaseModel):
     username: str = Field(...)
     name: str = Field(...)
     age: int = Field(..., ge=0)
-    password: str = Field(..., min_length=6)
+    password: str = Field(...)
     phone_no: str = Field(None)
     address: str = Field(None)
     patient_type: str = Field(None)

@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, Date, CheckConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
-from database import Base
+from app.db.database import Base
 
 class Patient(Base):
     __tablename__ = "patient"

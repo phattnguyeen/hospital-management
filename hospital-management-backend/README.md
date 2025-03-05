@@ -65,19 +65,36 @@ FastAPI provides automatic API documentation:
 ## Project Structure
 
 ```
-├── app
-│   ├── api             # API endpoints
-│   ├── models          # Database models
-│   ├── schemas         # Pydantic schemas
-│   ├── services        # Business logic
-│   ├── core            # Configuration and settings
-│   ├── main.py         # Entry point
-│   ├── database.py     # Database setup
-├── migrations          # Alembic migrations
-├── tests               # Test cases
-├── .env                # Environment variables
-├── requirements.txt    # Dependencies
-├── README.md           # Documentation
+hospital-management-backend/
+│── app/
+│   │── core/
+│   │   │── config.py       # Configuration settings
+│   │   │── security.py     # Security utilities (authentication, OAuth2, etc.)
+│   │── schemas/
+│   │   │── user.py         # Pydantic models for request/response
+│   │   │── hospital.py     # Pydantic models for hospital entities
+│   │── services/
+│   │   │── user_service.py # Business logic for user handling
+│   │   │── hospital_service.py # Business logic for hospitals
+│   │── models/
+│   │   │── user.py         # SQLAlchemy models for users
+│   │   │── hospital.py     # SQLAlchemy models for hospitals
+│   │── api/
+│   │   │── v1/
+│   │   │   │── endpoints/
+│   │   │   │   │── user.py  # Routes related to users
+│   │   │   │   │── hospital.py  # Routes related to hospitals
+│   │   │   │── api_v1.py   # Include all versioned routes
+│   │── db/
+│   │   │── database.py     # Database connection setup
+│   │   │── base.py         # Base SQLAlchemy model class
+│   │── main.py            # FastAPI entry point
+│── migrations/            # Alembic migration scripts
+│── tests/                 # Test cases
+│── .env                   # Environment variables
+│── requirements.txt       # Dependencies
+│── README.md              # Documentation
+
 ```
 
 ## Running Tests

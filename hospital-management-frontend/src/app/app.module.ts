@@ -13,6 +13,7 @@ import { NavbarModule } from './navbar/navbar.module';
 import { AccountModule } from './account/account.module';
 import { LoginComponent } from './account/login/login.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './auth.guard';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { HomeComponent } from './home/home.component';
     AccountModule
     
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

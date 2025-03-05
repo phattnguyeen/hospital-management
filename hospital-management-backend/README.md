@@ -50,7 +50,7 @@ This is the backend for the Hospital Management System. It is built using FastAP
 3. **Start the FastAPI server**:
 
    ```sh
-   uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+   uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
    ```
 
 The application will be accessible at: [http://localhost:8000](http://localhost:8000)

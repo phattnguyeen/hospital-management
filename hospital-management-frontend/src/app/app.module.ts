@@ -12,11 +12,13 @@ import { CoreModule } from './core/core.module';
 import { NavbarModule } from './navbar/navbar.module';
 import { AccountModule } from './account/account.module';
 import { LoginComponent } from './account/login/login.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

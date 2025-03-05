@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { Router } from '@angular/router';
 import { initThreeScene } from 'src/app/three/three-scene';
 import { LogoService } from 'src/app/service/logo.service';
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from 'src/app/service/api.service';
 import lottie from 'lottie-web';
 
 @Component({

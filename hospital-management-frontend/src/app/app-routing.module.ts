@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './account/login/login.component';
 import { DashboardComponent } from './core/dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
-import { AuthGuard } from './auth.guard'; // Import AuthGuard
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

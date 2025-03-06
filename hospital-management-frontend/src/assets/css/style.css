@@ -169,6 +169,15 @@
   display: none !important;
 }
 
+/* Add space between logo and text */
+.logo-img {
+  margin-right: 10px; /* Adjust the value as needed */
+}
+
+.logo-text {
+  margin-left: 10px; /* Adjust the value as needed */
+}
+
 .header-carousel .owl-nav {
   position: absolute;
   width: 200px;

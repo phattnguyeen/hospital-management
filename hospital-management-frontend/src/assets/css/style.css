@@ -1,4 +1,5 @@
-/********** Template CSS **********/
+.home-page{
+  /********** Template CSS **********/
 :root {
   --primary: #0463FA;
   --light: #EFF5FF;
@@ -690,3 +691,5 @@
 
 
 
+
+}

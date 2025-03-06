@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'hospital-management-frontend';
+  constructor(private router: Router) {}
+
+  isHomePage(): boolean {
+    return this.router.url === '/home';
+  }
+
+  isDashboardPage(): boolean {
+    return this.router.url === '/dashboard';
+  }
+
+  isLoginPage(): boolean {
+    return this.router.url === '/login';
+  }
 }

@@ -164,6 +164,11 @@
   text-shadow: 0 0 30px rgba(0, 0, 0, .1);
 }
 
+/* Hide Owl Carousel navigation buttons */
+.owl-carousel .owl-nav {
+  display: none !important;
+}
+
 .header-carousel .owl-nav {
   position: absolute;
   width: 200px;

@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, Column, Integer, String, Text, Date, Check
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 
-DATABASE_URL = "postgresql://postgres:Phat121002%40@localhost:5433/hospital_management"
+DATABASE_URL = "postgresql://phatnguyen:fFqMCm0RqQwdwq0rujX4IyNpHcCg8DA2@dpg-cvameh5svqrc73bvpveg-a.oregon-postgres.render.com/hospitalmanagement_txr6"
 
 try:
     engine = create_engine(DATABASE_URL)
@@ -20,3 +20,5 @@ def get_db():
         yield db  # Provide the session
     finally:
         db.close()  # Ensure the session is closed after use
+
+

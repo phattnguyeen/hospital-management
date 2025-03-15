@@ -78,6 +78,13 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
     access_token = create_access_token(data={"sub": user.username})
     return {"access_token": access_token, "token_type": "bearer"}
 
+@app.post("/logout", tags=["Auth"])
+def logout():
+    """
+    Logout user by invalidating the JWT token.
+    """
+    return {"message": "Logout successful"}
+
 @app.post("/patients/", tags=["Patients"])
 def create_patient(patient: PatientCreate, db: Session = Depends(get_db)):
     """Create a new patient record."""

@@ -1,9 +1,9 @@
-from sqlalchemy import create_engine, Column, Integer, String, Text
+from sqlalchemy import create_engine, Column, Integer, String, Text, Date, CheckConstraint
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Column, Integer, String, Text, Date, CheckConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
+
 # Update with your Render PostgreSQL URL
 DATABASE_URL = "postgresql://phatnguyen:fFqMCm0RqQwdwq0rujX4IyNpHcCg8DA2@dpg-cvameh5svqrc73bvpveg-a.oregon-postgres.render.com/hospitalmanagement_txr6"
 
@@ -12,7 +12,7 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-# Define a sample table
+# Define the Patient table
 class Patient(Base):
     __tablename__ = "patient"
 
@@ -30,8 +30,51 @@ class Patient(Base):
 
 # Create tables in the database
 def create_tables():
+    """Ensure tables are created in the database."""
     Base.metadata.create_all(bind=engine)
     print("Tables created successfully!")
 
+# Insert sample patients into the database
+def add_sample_patients():
+    """Insert sample patient records into the database."""
+    session = SessionLocal()
+    try:
+        patients = [
+            Patient(
+                username="alex",
+                name="John Doe",
+                password="$2b$12$JDqU9zlBGOsrarZ2XBDk2uoOowU8X3qpZTgjz43sHQIw3TYIhHTCa",
+                age=30,
+                phone_no="1234567890",
+                address="123 Main St, New York",
+                patient_type="Outpatient",
+                sex="Male",
+                admit_date=func.current_date(),
+                discharge_date=None
+            ),
+            Patient(
+                username="jane_smith",
+                name="Jane Smith",
+                password="password456",
+                age=25,
+                phone_no="0987654321",
+                address="456 Elm St, California",
+                patient_type="Inpatient",
+                sex="Female",
+                admit_date=func.current_date(),
+                discharge_date=None
+            )
+        ]
+        
+        session.add_all(patients)
+        session.commit()
+        print("Sample patient records added successfully!")
+    except Exception as e:
+        session.rollback()
+        print(f"Error adding sample patients: {e}")
+    finally:
+        session.close()
+
 if __name__ == "__main__":
     create_tables()
+    add_sample_patients()

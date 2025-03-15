@@ -1,5 +1,3 @@
-# services/patient_service.py
-
 from sqlalchemy.orm import Session
 from uuid import UUID
 from app.models.patient import Patient

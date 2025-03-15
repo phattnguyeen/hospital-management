@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:8000';
+  private apiUrl = 'https://hospital-management-qxwo.onrender.com';
 
   constructor(private http: HttpClient) { }
 

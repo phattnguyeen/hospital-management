@@ -4,7 +4,7 @@ from typing import Optional
 
 # Define a Pydantic model for creating a patient
 class PatientCreate(BaseModel):
-    patient_id: str = Field(..., max_length=100)
+    # patient_id: Optional[str] = Field(None, max_length=100)
     full_name: str = Field(..., max_length=100)
     birth_date: Optional[date] = Field(None)
     gender: Optional[str] = Field(None, pattern="^(Male|Female|Other)$")
@@ -15,6 +15,7 @@ class PatientCreate(BaseModel):
 
 # Define a Pydantic model for updating a patient
 class PatientUpdate(BaseModel):
+    # patient_id: Optional[str] = Field(None, max_length=100)
     full_name: Optional[str] = Field(None, max_length=100)
     birth_date: Optional[date] = Field(None)
     gender: Optional[str] = Field(None, pattern="^(Male|Female|Other)$")

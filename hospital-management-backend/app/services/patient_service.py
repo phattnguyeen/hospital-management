@@ -9,7 +9,6 @@ def get_patient_by_id(db: Session, patient_id: str):
 def create_patient(db: Session, patient_data: PatientCreate):
     """Creates a new patient record."""
     new_patient = Patient(
-        patient_id=patient_data.patient_id,
         full_name=patient_data.full_name,
         birth_date=patient_data.birth_date,
         gender=patient_data.gender,
@@ -19,9 +18,13 @@ def create_patient(db: Session, patient_data: PatientCreate):
         medical_history=patient_data.medical_history,
     )
     db.add(new_patient)
+    db.flush()  # ✅ Force SQLAlchemy to assign patient_id before commit
+    print(f"Generated Patient ID (Before Commit): {new_patient.patient_id}")  # Debugging
     db.commit()
-    db.refresh(new_patient)
+    db.refresh(new_patient)  # ✅ Fetch updated patient_id
+
     return new_patient
+
 
 def update_patient(db: Session, patient_id: str, patient_data: PatientUpdate):
     """Updates an existing patient record."""

@@ -6,7 +6,7 @@ from app.db.database import Base
 # Patient Table
 class Patient(Base):
     __tablename__ = "patient"
-    patient_id = Column(String(100), primary_key=True)
+    patient_id = Column(String, primary_key=True, server_default="gen_patient_id()") 
     full_name = Column(String(100), nullable=False)
     birth_date = Column(Date)
     gender = Column(String(10), CheckConstraint("gender IN ('Male', 'Female', 'Other')"))

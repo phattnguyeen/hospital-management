@@ -1,0 +1,14 @@
+name: Auto Deploy to Render
+
+on:
+  push:
+    branches:
+      - main  # Chạy khi có commit lên nhánh main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render Deployment
+        run: |
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"

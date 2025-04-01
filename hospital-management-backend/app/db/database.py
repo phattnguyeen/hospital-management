@@ -14,6 +14,6 @@ def get_db():
     """Dependency to get a new database session."""
     db: Session = SessionLocal()
     try:
-        yield db  # Provide the session
+        yield db  
     finally:
-        db.close()  # Ensure the session is closed after use
+        db.close()  

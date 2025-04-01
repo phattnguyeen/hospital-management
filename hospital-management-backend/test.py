@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine, text
 
 # Define the DATABASE_URL
-DATABASE_URL = "postgresql://postgres:Phat121002%40@localhost:5433/hospital_management"
+DATABASE_URL = "postgresql://phatnguyen:fFqMCm0RqQwdwq0rujX4IyNpHcCg8DA2@dpg-cvameh5svqrc73bvpveg-a.oregon-postgres.render.com/hospitalmanagement_txr6"
 
 # Create the SQLAlchemy engine
 engine = create_engine(DATABASE_URL)

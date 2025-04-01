@@ -1,36 +1,38 @@
-# schemas/patient.py
-
-from pydantic import BaseModel, Field
-from uuid import UUID
+from pydantic import BaseModel, Field, EmailStr
 from datetime import date
 from typing import Optional
 
-# Define a Pydantic model for request validation
+# Define a Pydantic model for creating a patient
 class PatientCreate(BaseModel):
-    username: str = Field(...)
-    name: str = Field(...)
-    age: int = Field(..., ge=0)
-    password: str = Field(...)
-    phone_no: str = Field(None)
-    address: str = Field(None)
-    patient_type: str = Field(None)
-    sex: str = Field(None)
-    admit_date: date = Field(None)
-    discharge_date: date = Field(None)
+    patient_id: str = Field(..., max_length=100)
+    full_name: str = Field(..., max_length=100)
+    birth_date: Optional[date] = Field(None)
+    gender: Optional[str] = Field(None, pattern="^(Male|Female|Other)$")
+    address: Optional[str] = Field(None, max_length=255)
+    phone_number: Optional[str] = Field(None, max_length=100)
+    email: Optional[EmailStr] = Field(None)
+    medical_history: Optional[str] = Field(None)
 
+# Define a Pydantic model for updating a patient
 class PatientUpdate(BaseModel):
-    username: str = Field(None)
-    name: str = Field(None)
-    age: int = Field(None, ge=0)
-    password: str = Field(None, min_length=6)
-    phone_no: str = Field(None)
-    address: str = Field(None)
-    patient_type: str = Field(None)
-    sex: str = Field(None)
-    admit_date: date = Field(None)
-    discharge_date: date = Field(None)
+    full_name: Optional[str] = Field(None, max_length=100)
+    birth_date: Optional[date] = Field(None)
+    gender: Optional[str] = Field(None, pattern="^(Male|Female|Other)$")
+    address: Optional[str] = Field(None, max_length=255)
+    phone_number: Optional[str] = Field(None, max_length=100)
+    email: Optional[EmailStr] = Field(None)
+    medical_history: Optional[str] = Field(None)
 
-# Pydantic model for token response
-class Token(BaseModel):
-    access_token: str
-    token_type: str
+# Define a Pydantic model for reading patient data
+class PatientRead(BaseModel):
+    patient_id: str
+    full_name: str
+    birth_date: Optional[date]
+    gender: Optional[str]
+    address: Optional[str]
+    phone_number: Optional[str]
+    email: Optional[EmailStr]
+    medical_history: Optional[str]
+
+    class Config:
+        orm_mode = True

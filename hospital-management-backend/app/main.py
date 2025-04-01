@@ -1,5 +1,3 @@
-# main.py
-
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
@@ -8,15 +6,15 @@ from uuid import UUID
 import jwt
 
 from app.db.database import get_db
-from app.services import patient_service
+from app.services import patient_service, account_service
 from app.schemas.patient import PatientCreate, PatientUpdate
+from app.schemas.account import AccountCreate, AccountUpdate
 from app.schemas.auth import Token
-from app.models.patient import Patient
 from fastapi.middleware.cors import CORSMiddleware
 from jwt.exceptions import InvalidTokenError
 
 # FastAPI app
-app = FastAPI(title="Patient Management API", description="API for managing patient records", version="1.0.0")
+app = FastAPI(title="Hospital Management API", description="API for managing accounts and patients", version="1.0.0")
 
 # CORS Middleware
 app.add_middleware(
@@ -57,18 +55,19 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     except InvalidTokenError:
         raise credentials_exception
 
-    user = patient_service.get_patient_by_username(db, username)
+    user = account_service.get_account_by_username(db, username)
     if user is None:
         raise credentials_exception
     return user
+
 
 @app.post("/login", response_model=Token, tags=["Auth"])
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     """
     Authenticate user and return JWT access token.
     """
-    user = patient_service.get_patient_by_username(db, form_data.username)
-    if not user or not patient_service.verify_password(form_data.password, user.password):
+    user = account_service.get_account_by_username(db, form_data.username)
+    if not user or not account_service.verify_password(form_data.password, user.passwordHash):  # Use passwordHash
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
@@ -85,30 +84,69 @@ def logout():
     """
     return {"message": "Logout successful"}
 
+
+
+@app.post("/accounts/", tags=["Accounts"])
+def create_account(account: AccountCreate, db: Session = Depends(get_db)):
+    """Create a new account."""
+    new_account = account_service.create_account(db, account)
+    return {"message": "Account created successfully", "account_id": new_account.account_id}
+
+
+@app.get("/accounts/{account_id}", tags=["Accounts"])
+def read_account(account_id: UUID, db: Session = Depends(get_db)):
+    """Fetch an account by ID."""
+    account = account_service.get_account_by_id(db, account_id)
+    if not account:
+        raise HTTPException(status_code=404, detail="Account not found")
+    return account
+
+
+@app.put("/accounts/{account_id}", tags=["Accounts"])
+def update_account(account_id: UUID, account: AccountUpdate, db: Session = Depends(get_db)):
+    """Update an account."""
+    updated_account = account_service.update_account(db, account_id, account)
+    if not updated_account:
+        raise HTTPException(status_code=404, detail="Account not found")
+    return {"message": "Account updated successfully", "account_id": updated_account.account_id}
+
+
+@app.delete("/accounts/{account_id}", tags=["Accounts"])
+def delete_account(account_id: UUID, db: Session = Depends(get_db)):
+    """Delete an account."""
+    deleted_account = account_service.delete_account(db, account_id)
+    if not deleted_account:
+        raise HTTPException(status_code=404, detail="Account not found")
+    return {"message": "Account deleted successfully"}
+
+
 @app.post("/patients/", tags=["Patients"])
 def create_patient(patient: PatientCreate, db: Session = Depends(get_db)):
     """Create a new patient record."""
     new_patient = patient_service.create_patient(db, patient)
     return {"message": "Patient created successfully", "patient_id": new_patient.patient_id}
 
+
 @app.get("/patients/{patient_id}", tags=["Patients"])
-def read_patient(patient_id: UUID, db: Session = Depends(get_db)):
+def read_patient(patient_id: str, db: Session = Depends(get_db)):
     """Fetch a patient record by ID."""
     patient = patient_service.get_patient_by_id(db, patient_id)
     if not patient:
         raise HTTPException(status_code=404, detail="Patient not found")
     return patient
 
+
 @app.put("/patients/{patient_id}", tags=["Patients"])
-def update_patient(patient_id: UUID, patient: PatientUpdate, db: Session = Depends(get_db)):
+def update_patient(patient_id: str, patient: PatientUpdate, db: Session = Depends(get_db)):
     """Update a patient record."""
     updated_patient = patient_service.update_patient(db, patient_id, patient)
     if not updated_patient:
         raise HTTPException(status_code=404, detail="Patient not found")
     return {"message": "Patient updated successfully", "patient_id": updated_patient.patient_id}
 
+
 @app.delete("/patients/{patient_id}", tags=["Patients"])
-def delete_patient(patient_id: UUID, db: Session = Depends(get_db)):
+def delete_patient(patient_id: str, db: Session = Depends(get_db)):
     """Delete a patient record."""
     deleted_patient = patient_service.delete_patient(db, patient_id)
     if not deleted_patient:

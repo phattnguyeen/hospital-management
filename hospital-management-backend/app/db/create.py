@@ -82,15 +82,15 @@ class Employee(Base):
     department_id = Column(String(100), ForeignKey("department.department_id"), nullable=True)
 
 
+# Account Table (Optimized)
 class Account(Base):
-    __tablename__ = 'account'
+    __tablename__ = "account"
     account_id = Column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid(), index=True)
     username = Column(String(50), unique=True, nullable=False)
-    passwordHash = Column(Text, nullable=False)
+    passwordHash = Column(String(100), nullable=False)
     role = Column(String(100), nullable=False)
-    patient_id = Column(String(100), ForeignKey('patient.patient_id', ondelete='CASCADE'), unique=True)
-    doctor_id = Column(String(100), ForeignKey('doctor.doctor_id', ondelete='CASCADE'), unique=True)
-    employee_id = Column(String(100), ForeignKey('employee.employee_id', ondelete='CASCADE'), unique=True)
+    user_id = Column(String(100), nullable=False)  # Unified user reference
+    user_type = Column(String(50), CheckConstraint("user_type IN ('patient', 'doctor', 'employee')"))
 
 # Invoice Table
 class Invoice(Base):
@@ -194,14 +194,21 @@ def create_tables():
     print("Tables created successfully!")
 
 # Drop tables in the database
+# Drop tables in the database
 def drop_tables():
     """Drop all tables in the database."""
-    Base.metadata.drop_all(bind=engine)
-    print("Tables dropped successfully!")
+    try:
+        # Use CASCADE to drop tables with dependencies
+        with engine.connect() as connection:
+            connection.execute(text("DROP SCHEMA public CASCADE"))
+            connection.execute(text("CREATE SCHEMA public"))
+        print("Tables dropped successfully!")
+    except Exception as e:
+        print(f"Error dropping tables: {e}")
 
 if __name__ == "__main__":
     # Uncomment the line below to drop all tables before creating them again
-    #drop_tables()
+    # drop_tables()
     create_tables()
 
 

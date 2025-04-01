@@ -8,3 +8,4 @@ passlib
 python-jose
 python-multipart
 PyJWT
+email-validator

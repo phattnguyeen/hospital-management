@@ -6,9 +6,10 @@ from uuid import UUID
 import jwt
 
 from app.db.database import get_db
-from app.services import patient_service, account_service
+from app.services import patient_service, account_service, department_service
 from app.schemas.patient import PatientCreate, PatientUpdate
 from app.schemas.account import AccountCreate, AccountUpdate
+from app.schemas.department import DepartmentCreate, DepartmentUpdate
 from app.schemas.auth import Token
 from fastapi.middleware.cors import CORSMiddleware
 from jwt.exceptions import InvalidTokenError
@@ -152,3 +153,32 @@ def delete_patient(patient_id: str, db: Session = Depends(get_db)):
     if not deleted_patient:
         raise HTTPException(status_code=404, detail="Patient not found")
     return {"message": "Patient deleted successfully"}
+
+
+
+@app.post("/departments/", tags=["Departments"])
+def create_department(department: DepartmentCreate, db: Session = Depends(get_db)):
+    """Create a new account."""
+    new_department = department_service.create_department(db, department)
+    return {"message": "Deparment created successfully", "department_id": new_department.department_id}
+
+@app.put("/departments/{department_id}", tags=["Departments"])
+def update_department(department_id: str, department: DepartmentUpdate, db: Session = Depends(get_db)):
+    """
+    Update an existing department record.
+    """
+    updated_department = department_service.update_department(db, department_id, department)
+    if not updated_department:
+        raise HTTPException(status_code=404, detail="Department not found")
+    return {"message": "Department updated successfully", "department_id": updated_department.department_id}
+
+
+@app.delete("/departments/{department_id}", tags=["Departments"])
+def delete_department(department_id: str, db: Session = Depends(get_db)):
+    """
+    Delete a department record.
+    """
+    deleted_department = department_service.delete_department(db, department_id)
+    if not deleted_department:
+        raise HTTPException(status_code=404, detail="Department not found")
+    return {"message": "Department deleted successfully"}

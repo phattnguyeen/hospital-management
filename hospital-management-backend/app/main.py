@@ -182,3 +182,11 @@ def delete_department(department_id: str, db: Session = Depends(get_db)):
     if not deleted_department:
         raise HTTPException(status_code=404, detail="Department not found")
     return {"message": "Department deleted successfully"}
+
+@app.get("/departments/", tags=["Departments"])
+def get_all_departments(db: Session = Depends(get_db)):
+    """
+    Fetch all departments.
+    """
+    departments = department_service.get_all_departments(db)
+    return departments

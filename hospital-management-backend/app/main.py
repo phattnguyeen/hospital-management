@@ -7,17 +7,19 @@ import jwt
 
 from app.db.database import get_db
 from app.services import patient_service, account_service, department_service, doctor_service
-
+from app.services import employee_service, insurance_service
 from app.schemas.account import AccountCreate, AccountUpdate
 from app.schemas.department import DepartmentCreate, DepartmentUpdate
+from app.schemas.insurance import InsuranceCreate, InsuranceUpdate
 from app.schemas.doctor import DoctorCreate, DoctorUpdate
 from app.schemas.patient import PatientCreate, PatientUpdate
+from app.schemas.employee import EmployeeCreate, EmployeeUpdate
 from app.schemas.auth import Token
 from fastapi.middleware.cors import CORSMiddleware
 from jwt.exceptions import InvalidTokenError
 
 # FastAPI app
-app = FastAPI(title="Hospital Management API", description="API for managing accounts and patients", version="1.0.0")
+app = FastAPI(title="Hospital Management API", description="API for hospital management", version="1.0.0")
 
 # CORS Middleware
 app.add_middleware(
@@ -231,3 +233,42 @@ def get_all_doctors(db: Session = Depends(get_db)):
     """Fetch all doctors."""
     doctors = doctor_service.get_all_doctors(db)
     return doctors
+
+
+# Employee Endpoints
+@app.post("/employees/", tags=["Employees"])
+def create_employee(employee: EmployeeCreate, db: Session = Depends(get_db)):
+    """Create a new employee record."""
+    new_employee = employee_service.create_employee(db, employee)
+    return {"message": "Employee created successfully", "employee_id": new_employee.employee_id}
+
+@app.get("/employees/{employee_id}", tags=["Employees"])
+def read_employee(employee_id: str, db: Session = Depends(get_db)):
+    """Fetch an employee record by ID."""
+    employee = employee_service.get_employee_by_id(db, employee_id)
+    if not employee:
+        raise HTTPException(status_code=404, detail="Employee not found")
+    return employee
+
+@app.put("/employees/{employee_id}", tags=["Employees"])
+def update_employee(employee_id: str, employee: EmployeeUpdate, db: Session = Depends(get_db)):
+    """Update an employee record."""
+    updated_employee = employee_service.update_employee(db, employee_id, employee)
+    if not updated_employee:
+        raise HTTPException(status_code=404, detail="Employee not found")
+    return {"message": "Employee updated successfully", "employee_id": updated_employee.employee_id}
+
+@app.delete("/employees/{employee_id}", tags=["Employees"])
+def delete_employee(employee_id: str, db: Session = Depends(get_db)):
+    """Delete an employee record."""
+    deleted_employee = employee_service.delete_employee(db, employee_id)
+    if not deleted_employee:
+        raise HTTPException(status_code=404, detail="Employee not found")
+    return {"message": "Employee deleted successfully"}
+
+@app.get("/employees/", tags=["Employees"])
+def get_all_employees(db: Session = Depends(get_db)):
+    """Fetch all employees."""
+    employees = employee_service.get_all_employees(db)
+    return employees
+

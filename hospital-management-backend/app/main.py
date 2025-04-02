@@ -6,10 +6,12 @@ from uuid import UUID
 import jwt
 
 from app.db.database import get_db
-from app.services import patient_service, account_service, department_service
-from app.schemas.patient import PatientCreate, PatientUpdate
+from app.services import patient_service, account_service, department_service, doctor_service
+
 from app.schemas.account import AccountCreate, AccountUpdate
 from app.schemas.department import DepartmentCreate, DepartmentUpdate
+from app.schemas.doctor import DoctorCreate, DoctorUpdate
+from app.schemas.patient import PatientCreate, PatientUpdate
 from app.schemas.auth import Token
 from fastapi.middleware.cors import CORSMiddleware
 from jwt.exceptions import InvalidTokenError
@@ -190,3 +192,42 @@ def get_all_departments(db: Session = Depends(get_db)):
     """
     departments = department_service.get_all_departments(db)
     return departments
+
+
+
+# Doctor Endpoints
+@app.post("/doctors/", tags=["Doctors"])
+def create_doctor(doctor: DoctorCreate, db: Session = Depends(get_db)):
+    """Create a new doctor record."""
+    new_doctor = doctor_service.create_doctor(db, doctor)
+    return {"message": "Doctor created successfully", "doctor_id": new_doctor.doctor_id}
+
+@app.get("/doctors/{doctor_id}", tags=["Doctors"])
+def read_doctor(doctor_id: str, db: Session = Depends(get_db)):
+    """Fetch a doctor record by ID."""
+    doctor = doctor_service.get_doctor_by_id(db, doctor_id)
+    if not doctor:
+        raise HTTPException(status_code=404, detail="Doctor not found")
+    return doctor
+
+@app.put("/doctors/{doctor_id}", tags=["Doctors"])
+def update_doctor(doctor_id: str, doctor: DoctorUpdate, db: Session = Depends(get_db)):
+    """Update a doctor record."""
+    updated_doctor = doctor_service.update_doctor(db, doctor_id, doctor)
+    if not updated_doctor:
+        raise HTTPException(status_code=404, detail="Doctor not found")
+    return {"message": "Doctor updated successfully", "doctor_id": updated_doctor.doctor_id}
+
+@app.delete("/doctors/{doctor_id}", tags=["Doctors"])
+def delete_doctor(doctor_id: str, db: Session = Depends(get_db)):
+    """Delete a doctor record."""
+    deleted_doctor = doctor_service.delete_doctor(db, doctor_id)
+    if not deleted_doctor:
+        raise HTTPException(status_code=404, detail="Doctor not found")
+    return {"message": "Doctor deleted successfully"}
+
+@app.get("/doctors/", tags=["Doctors"])
+def get_all_doctors(db: Session = Depends(get_db)):
+    """Fetch all doctors."""
+    doctors = doctor_service.get_all_doctors(db)
+    return doctors

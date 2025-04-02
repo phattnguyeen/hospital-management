@@ -272,3 +272,39 @@ def get_all_employees(db: Session = Depends(get_db)):
     employees = employee_service.get_all_employees(db)
     return employees
 
+# Insurance Endpoints
+@app.post("/insurances/", tags=["Insurances"])
+def create_insurance(insurance: InsuranceCreate, db: Session = Depends(get_db)):
+    """Create a new insurance record."""
+    new_insurance = insurance_service.create_insurance(db, insurance)
+    return {"message": "Insurance created successfully", "insurance_id": new_insurance.insurance_id}
+
+@app.get("/insurances/{insurance_id}", tags=["Insurances"])
+def read_insurance(insurance_id: str, db: Session = Depends(get_db)):
+    """Fetch an insurance record by ID."""
+    insurance = insurance_service.get_insurance_by_id(db, insurance_id)
+    if not insurance:
+        raise HTTPException(status_code=404, detail="Insurance not found")
+    return insurance
+
+@app.put("/insurances/{insurance_id}", tags=["Insurances"])
+def update_insurance(insurance_id: str, insurance: InsuranceUpdate, db: Session = Depends(get_db)):
+    """Update an insurance record."""
+    updated_insurance = insurance_service.update_insurance(db, insurance_id, insurance)
+    if not updated_insurance:
+        raise HTTPException(status_code=404, detail="Insurance not found")
+    return {"message": "Insurance updated successfully", "insurance_id": updated_insurance.insurance_id}
+
+@app.delete("/insurances/{insurance_id}", tags=["Insurances"])
+def delete_insurance(insurance_id: str, db: Session = Depends(get_db)):
+    """Delete an insurance record."""
+    deleted_insurance = insurance_service.delete_insurance(db, insurance_id)
+    if not deleted_insurance:
+        raise HTTPException(status_code=404, detail="Insurance not found")
+    return {"message": "Insurance deleted successfully"}
+
+@app.get("/insurances/", tags=["Insurances"])
+def get_all_insurances(db: Session = Depends(get_db)):
+    """Fetch all insurance records."""
+    insurances = insurance_service.get_all_insurances(db)
+    return insurances

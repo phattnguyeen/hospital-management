@@ -13,7 +13,7 @@ def get_all_insurances(db: Session):
 def create_insurance(db: Session, insurance_data: InsuranceCreate):
     """Create a new insurance record."""
     new_insurance = Insurance(
-        isurance_id=insurance_data.insurance_id,
+        insurance_id=insurance_data.insurance_id,
         patient_id=insurance_data.patient_id,
         treatment_facility=insurance_data.treatment_facility,
     )

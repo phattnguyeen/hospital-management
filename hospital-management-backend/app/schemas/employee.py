@@ -33,5 +33,3 @@ class EmployeeRead(BaseModel):
     position: str
     department_id: Optional[str]
 
-    class Config:
-        orm_mode = True

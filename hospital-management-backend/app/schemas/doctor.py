@@ -36,5 +36,3 @@ class DoctorRead(BaseModel):
     experience: Optional[int]
     department_id: Optional[str]
 
-    class Config:
-        orm_mode = True

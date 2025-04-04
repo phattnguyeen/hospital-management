@@ -13,7 +13,7 @@ def get_all_departments(db: Session):
 def create_department(db: Session, department_data: DepartmentCreate):
     """Create a new department."""
     new_department = Department(
-        department_id= department_data.department_id,  # Use the explicitly passed department_id
+        #department_id= department_data.department_id,  # Use the explicitly passed department_id
         department_name=department_data.department_name
     )
     db.add(new_department)

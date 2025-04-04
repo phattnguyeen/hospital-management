@@ -9,3 +9,5 @@ python-jose
 python-multipart
 PyJWT
 email-validator
+pyotp
+twilio

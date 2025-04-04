@@ -18,6 +18,3 @@ class InsuranceRead(BaseModel):
     insurance_id: str
     patient_id: str
     treatment_facility: Optional[str]
-
-    class Config:
-        orm_mode = True

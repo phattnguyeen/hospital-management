@@ -35,5 +35,3 @@ class PatientRead(BaseModel):
     email: Optional[EmailStr]
     medical_history: Optional[str]
 
-    class Config:
-        orm_mode = True

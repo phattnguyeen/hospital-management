@@ -10,7 +10,7 @@ class Doctor(Base):
     birth_date = Column(Date)
     gender = Column(String(10), CheckConstraint("gender IN ('Male', 'Female', 'Other')"))
     address = Column(String(255))
-    phone_number = Column(String(100), unique=True)
+    phone_number = Column(String(20), ForeignKey("account.phone_number"), unique=True, nullable=False)
     national_id = Column(String(100), unique=True)
     experience = Column(Integer, CheckConstraint("experience >= 0"))
     department_id = Column(String(100), ForeignKey("department.department_id"), nullable=True)

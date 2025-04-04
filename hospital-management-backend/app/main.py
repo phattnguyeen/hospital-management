@@ -54,13 +54,13 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
+        phone_number: str = payload.get("sub")
+        if phone_number is None:
             raise credentials_exception
     except InvalidTokenError:
         raise credentials_exception
 
-    user = account_service.get_account_by_username(db, username)
+    user = account_service.get_account_by_phone_number(db, phone_number)
     if user is None:
         raise credentials_exception
     return user
@@ -69,17 +69,19 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
 @app.post("/login", response_model=Token, tags=["Auth"])
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     """
-    Authenticate user and return JWT access token.
+    Authenticate user and return JWT access token using phone_number and password.
     """
-    user = account_service.get_account_by_username(db, form_data.username)
-    if not user or not account_service.verify_password(form_data.password, user.passwordHash):  # Use passwordHash
+    # Fetch the user by phone_number
+    user = account_service.get_account_by_phone_number(db, form_data.username)  # Use `username` field for phone_number
+    if not user or not account_service.verify_password(form_data.password, user.password_hash):  # Verify password
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
+            detail="Incorrect phone number or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    access_token = create_access_token(data={"sub": user.username})
+    # Create a JWT token with the phone_number as the subject
+    access_token = create_access_token(data={"sub": user.phone_number})
     return {"access_token": access_token, "token_type": "bearer"}
 
 @app.post("/logout", tags=["Auth"])

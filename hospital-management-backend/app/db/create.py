@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    create_engine, Column, String, Integer, Text, Date, ForeignKey, DECIMAL, Time, CheckConstraint, event
+    create_engine, Column, String, Integer, Text, Date, ForeignKey, DECIMAL, Time, CheckConstraint, event, Boolean, DateTime
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
@@ -19,7 +19,7 @@ Base = declarative_base()
 # Department Table
 class Department(Base):
     __tablename__ = "department"
-    department_id = Column(String(100), primary_key=True)
+    department_id = Column(String(100), primary_key=True, server_default="gen_department_id()")
     department_name = Column(String(100), nullable=False)
 
 
@@ -32,7 +32,8 @@ class Patient(Base):
     birth_date = Column(Date)
     gender = Column(String(10), CheckConstraint("gender IN ('Male', 'Female', 'Other')"))
     address = Column(String(255))
-    phone_number = Column(String(100), unique=True)
+    national_id = Column(String(100), unique=True)
+    phone_number = Column(String(20), ForeignKey("account.phone_number"), unique=True, nullable=False)
     email = Column(String(100), unique=True)
     medical_history = Column(Text)
 
@@ -42,13 +43,14 @@ class Patient(Base):
 # Doctor Table
 class Doctor(Base):
     __tablename__ = "doctor"
-    doctor_id = Column(String(100), primary_key=True)
+    doctor_id = Column(String(100), primary_key=True, server_default="gen_doctor_id()")
     full_name = Column(String(100), nullable=False)
     birth_date = Column(Date)
     gender = Column(String(10), CheckConstraint("gender IN ('Male', 'Female', 'Other')"))
     address = Column(String(255))
-    phone_number = Column(String(100), unique=True)
+    phone_number = Column(String(20), ForeignKey("account.phone_number"), unique=True, nullable=False)
     national_id = Column(String(100), unique=True)
+    email = Column(String(100), unique=True)
     experience = Column(Integer, CheckConstraint("experience >= 0"))
     department_id = Column(String(100), ForeignKey("department.department_id"), nullable=True)
 
@@ -77,20 +79,28 @@ class Employee(Base):
     birth_date = Column(Date)
     gender = Column(String(10), CheckConstraint("gender IN ('Male', 'Female', 'Other')"))
     address = Column(String(255))
-    phone_number = Column(String(100), unique=True)
+    phone_number = Column(String(20), ForeignKey("account.phone_number"), unique=True, nullable=False)
+    national_id = Column(String(100), unique=True)
+    email = Column(String(100), unique=True)
     position = Column(String(50), nullable=False)
     department_id = Column(String(100), ForeignKey("department.department_id"), nullable=True)
 
 
-# Account Table (Optimized)
 class Account(Base):
     __tablename__ = "account"
+    
     account_id = Column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid(), index=True)
-    username = Column(String(50), unique=True, nullable=False)
-    passwordHash = Column(String(100), nullable=False)
-    role = Column(String(100), nullable=False)
-    user_id = Column(String(100), nullable=False)  # Unified user reference
-    user_type = Column(String(50), CheckConstraint("user_type IN ('patient', 'doctor', 'employee')"))
+    # username = Column(String(50), unique=True, nullable=False)
+    password_hash = Column(String(255), nullable=False)  
+    otp = Column(String(6), nullable=True)  # Thêm trường OTP
+    role = Column(String(50), CheckConstraint("role IN ('patient', 'doctor', 'employee', 'admin')"), nullable=True)
+    user_id = Column(String(100), nullable=True)  # Có thể NULL ban đầu, cập nhật sau khi nhập thông tin
+    phone_number = Column(String(20), unique=True, nullable=False)
+    is_verified = Column(Boolean, default=False)  
+    created_at = Column(DateTime, default=func.now())
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now())
+
+
 
 # Invoice Table
 class Invoice(Base):
@@ -195,20 +205,34 @@ def create_tables():
 
 # Drop tables in the database
 # Drop tables in the database
-def drop_tables():
+from sqlalchemy import text
+
+def drop_tables(engine):
     """Drop all tables in the database."""
     try:
-        # Use CASCADE to drop tables with dependencies
+        # Open a connection to the database
         with engine.connect() as connection:
-            connection.execute(text("DROP SCHEMA public CASCADE"))
-            connection.execute(text("CREATE SCHEMA public"))
+            # Drop all tables in the public schema
+            connection.execute(text("""
+                DO $$ 
+                DECLARE
+                    r RECORD;
+                BEGIN
+                    -- Loop through each table and drop it
+                    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') 
+                    LOOP
+                        EXECUTE 'DROP TABLE IF EXISTS public.' || quote_ident(r.tablename) || ' CASCADE';
+                    END LOOP;
+                END $$;
+            """))
         print("Tables dropped successfully!")
     except Exception as e:
         print(f"Error dropping tables: {e}")
 
+
 if __name__ == "__main__":
     # Uncomment the line below to drop all tables before creating them again
-    # drop_tables()
+    #drop_tables()
     create_tables()
 
 

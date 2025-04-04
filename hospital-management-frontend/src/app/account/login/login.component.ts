@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('threeContainer', { static: true }) threeContainer!: ElementRef;
   @ViewChild('logoContainer', { static: true }) logoContainer!: ElementRef;
 
-  phonenumber: string = '';
+  username: string = '';
   password: string = '';
   errorMessage: string | null = null;
 
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   login() {
-    this.apiService.login({ username: this.phonenumber, password: this.password }).subscribe(
+    this.apiService.login({ username: this.username, password: this.password }).subscribe(
       response => {
         console.log('Login Success:', response);
         localStorage.setItem('access_token', response.access_token); // Store token

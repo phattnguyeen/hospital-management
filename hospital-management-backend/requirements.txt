@@ -11,3 +11,4 @@ PyJWT
 email-validator
 pyotp
 twilio
+python-dotenv

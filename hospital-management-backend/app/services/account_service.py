@@ -7,11 +7,12 @@ from passlib.context import CryptContext
 from twilio.rest import Client  # type: ignore
 import random
 
+
 from dotenv import load_dotenv
 import os
-
 # Password hashing context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -24,6 +25,12 @@ load_dotenv()  # Load environment variables from .env file
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER")
+# =======
+# # Twilio credentials (replace with your actual credentials)
+# TWILIO_ACCOUNT_SID = 'AC09bf04efa93ae42365980b3b2361d2df'
+# TWILIO_AUTH_TOKEN = '0315a992197dd70559d1e8b15a560ab1'
+# TWILIO_PHONE_NUMBER = '+12318880770'  # Replace with your verified Twilio phone number
+# >>>>>>> e4525f9 (Update frontend)
 
 # Initialize Twilio client
 client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)

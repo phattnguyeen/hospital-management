@@ -1,2 +1,5 @@
 node_modules
+# .gitignore
 .env
+env.py
+test2.py

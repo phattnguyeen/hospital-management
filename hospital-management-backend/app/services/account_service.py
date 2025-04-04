@@ -14,23 +14,18 @@ import os
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-load_dotenv()  # Load environment variables from .env file
+load_dotenv(".env")  # Load environment variables from .env file
 
 # # Twilio credentials (replace with your actual credentials)
 # TWILIO_ACCOUNT_SID = 'AC09bf04efa93ae42365980b3b2361d2df'
 # TWILIO_AUTH_TOKEN = '0315a992197dd70559d1e8b15a560ab1'
 # TWILIO_PHONE_NUMBER = '+12318880770'  # Replace with your verified Twilio phone number
 
-# Twilio credentials loaded from environment variables
+#Twilio credentials loaded from environment variables
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER")
-# =======
-# # Twilio credentials (replace with your actual credentials)
-# TWILIO_ACCOUNT_SID = 'AC09bf04efa93ae42365980b3b2361d2df'
-# TWILIO_AUTH_TOKEN = '0315a992197dd70559d1e8b15a560ab1'
-# TWILIO_PHONE_NUMBER = '+12318880770'  # Replace with your verified Twilio phone number
-# >>>>>>> e4525f9 (Update frontend)
+
 
 # Initialize Twilio client
 client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
@@ -86,9 +81,9 @@ def create_account(db: Session, account_data: AccountCreate):
         raise ValueError("Phone number is already in use.")
 
     # Validate the role
-    valid_roles = ["patient", "doctor", "employee", "admin"]
-    if account_data.role not in valid_roles:
-        raise ValueError(f"Invalid role. Allowed roles are: {', '.join(valid_roles)}")
+    # valid_roles = ["patient", "doctor", "employee", "admin"]
+    # if account_data.role not in valid_roles:
+    #     raise ValueError(f"Invalid role. Allowed roles are: {', '.join(valid_roles)}")
 
     # Generate and send OTP
     otp = generate_otp()
@@ -103,7 +98,7 @@ def create_account(db: Session, account_data: AccountCreate):
     hashed_password = get_password_hash(account_data.password)
     new_account = Account(
         password_hash=hashed_password,
-        role=account_data.role,
+        # role=account_data.role,
         phone_number=account_data.phone_number,
         is_verified=True,  # Set to True after successful OTP verification
     )

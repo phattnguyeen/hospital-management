@@ -1,6 +1,47 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@application/base": [
+        "./dist/application/base"
+      ],
+      "@application/commands": [
+        "./dist/application/commands"
+      ],
+      "@application/queries": [
+        "./dist/application/queries"
+      ],
+      "@core/base": [
+        "./dist/core/base"
+      ],
+      "@core/domain": [
+        "./dist/core/domain"
+      ],
+      "@core/models": [
+        "./dist/core/models"
+      ],
+      "@infrastructure/authorization": [
+        "./dist/infrastructure/authorization"
+      ],
+      "@infrastructure/base": [
+        "./dist/infrastructure/base"
+      ],
+      "@infrastructure/repositories": [
+        "./dist/infrastructure/repositories"
+      ],
+      "@view/base": [
+        "./dist/view/base"
+      ],
+      "@view/directives": [
+        "./dist/view/directives"
+      ],
+      "@view/pipes": [
+        "./dist/view/pipes"
+      ],
+      "@view/utils": [
+        "./dist/view/utils"
+      ]
+    },
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -13,12 +54,13 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
-    "target": "es2020",
-    "module": "es2020",
+    "resolveJsonModule": true,
+    "target": "ES2022",
+    "module": "ES2022",
     "lib": [
-      "es2020",
+      "ES2022",
       "dom"
     ],
     "skipLibCheck": true

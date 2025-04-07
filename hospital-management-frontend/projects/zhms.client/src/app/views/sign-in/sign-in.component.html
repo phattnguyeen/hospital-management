@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div>
+    <div class="row justify-content-center align-items-center vh-100">
+      <div class="card shadow-sm">
+        <div class="card-body position-relative">
+          <div class="col-md-7">
+            <div #logoContainer class="logo-container"></div>
+          </div>
+          <div class="col-md-5">
+            <div class="position-absolute top-1 end-0 pe-3">
+              <mat-slide-toggle [checked]="isEnglish" (change)="toggleLanguage($event.checked)" color="primary"></mat-slide-toggle>
+            </div>
+            <h5 class="card-title text-center fs-25px">{{ 'sign-in.title' | translate | uppercase }}</h5>
+            <form (submit)="$event.preventDefault()" class="w-100">
+              <div class="mat-input">
+                <mat-label class="fs-14px p-0">{{ 'sign-in.phone' | translate }}</mat-label>
+                <mat-form-field class="w-100 p-0">
+                  <input matInput required autocomplete="email" class="fs-12px" type="email" />
+                  <mat-error>
+                    {{ 'sign_in.validate.email' }}
+                  </mat-error>
+                  <mat-error>
+                    {{ 'sign_in.validate.email_required' }}
+                  </mat-error>
+                  <mat-error>
+                    {{ 'sign_in.validate.email_max_length' }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <mat-label class="fs-14px p-0">{{ 'sign-in.password' | translate }}</mat-label>
+                <mat-form-field class="w-100 p-0">
+                  <input matInput required autocomplete="email" class="fs-12px" type="email" />
+                  <mat-error>
+                    {{ 'sign_in.validate.email' }}
+                  </mat-error>
+                  <mat-error>
+                    {{ 'sign_in.validate.email_required' }}
+                  </mat-error>
+                  <mat-error>
+                    {{ 'sign_in.validate.email_max_length' }}
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+              <button type="button" class="btn btn-secondary w-100 mb-3">Login with FaceID</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center align-items-center vh-100">
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="card shadow-sm">
+          <div class="card-body text-center">
+            <p>
+              Don't have an account?
+              <a routerLink="/sign-up">Sign Up</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

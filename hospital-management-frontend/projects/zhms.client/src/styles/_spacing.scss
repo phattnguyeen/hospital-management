@@ -1,0 +1,97 @@
+// styles/mixins/_spacing.scss
+
+/// Generate margin classes
+/// @param {Number} $min - The minimum value
+/// @param {Number} $max - The maximum value
+/// @param {Number} $step - The step value
+/// @param {String} $unit - The unit value
+@mixin generateMarginClasses($min, $max, $step: 2, $unit: px) {
+  @for $i from $min through $max {
+    @if ($i % $step == 0) {
+      // Top
+      .m-t-#{$i}#{$unit} {
+        margin-top: #{$i}#{$unit};
+      }
+
+      // Right
+      .m-r-#{$i}#{$unit} {
+        margin-right: #{$i}#{$unit};
+      }
+
+      // Bottom
+      .m-b-#{$i}#{$unit} {
+        margin-bottom: #{$i}#{$unit};
+      }
+
+      // Left
+      .m-l-#{$i}#{$unit} {
+        margin-left: #{$i}#{$unit};
+      }
+
+      // Horizontal
+      .m-h-#{$i}#{$unit} {
+        margin-left: #{$i}#{$unit};
+        margin-right: #{$i}#{$unit};
+      }
+
+      // Vertical
+      .m-v-#{$i}#{$unit} {
+        margin-top: #{$i}#{$unit};
+        margin-bottom: #{$i}#{$unit};
+      }
+
+      // All
+      .m-#{$i}#{$unit} {
+        margin: #{$i}#{$unit};
+      }
+    }
+  }
+}
+
+/// Generate padding classes
+/// @param {Number} $min - The minimum value
+/// @param {Number} $max - The maximum value
+/// @param {Number} $step - The step value
+/// @param {String} $unit - The unit value
+@mixin generatePaddingClasses($min, $max, $step: 2, $unit: px) {
+  @for $i from $min through $max {
+    @if ($i % $step == 0) {
+      // Top
+      .p-t-#{$i}#{$unit} {
+        padding-top: #{$i}#{$unit};
+      }
+
+      // Right
+      .p-r-#{$i}#{$unit} {
+        padding-right: #{$i}#{$unit};
+      }
+
+      // Bottom
+      .p-b-#{$i}#{$unit} {
+        padding-bottom: #{$i}#{$unit};
+      }
+
+      // Left
+      .p-l-#{$i}#{$unit} {
+        padding-left: #{$i}#{$unit};
+      }
+
+      // Horizontal
+      .p-h-#{$i}#{$unit} {
+        padding-left: #{$i}#{$unit};
+        padding-right: #{$i}#{$unit};
+      }
+
+      // Vertical
+      .p-v-#{$i}#{$unit} {
+        padding-top: #{$i}#{$unit};
+        padding-bottom: #{$i}#{$unit};
+      }
+
+      // All
+      .p-#{$i}#{$unit} {
+        padding: #{$i}#{$unit};
+      }
+    }
+  }
+}

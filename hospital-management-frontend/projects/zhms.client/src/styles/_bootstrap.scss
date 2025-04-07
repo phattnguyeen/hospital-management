@@ -1,0 +1,13 @@
+@import './variables';
+
+* {
+  font-family: $font-family-base;
+}
+
+html,
+body {
+  font-size: 16px;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}

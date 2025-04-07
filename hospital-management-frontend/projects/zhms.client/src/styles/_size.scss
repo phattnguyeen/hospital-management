@@ -1,0 +1,40 @@
+/// Generate size classes
+/// @param $property - CSS property
+/// @param $min - Minimum size value
+/// @param $max - Maximum size value
+/// @param $unit - Size unit
+@mixin generateSizeClasses($property, $min: 12, $max: 100, $unit: px) {
+  @for $i from $min through $max {
+    .#{$property}-#{$i}#{$unit} {
+      #{$property}: #{$i}#{$unit}#{' !important'};
+    }
+  }
+}
+
+/// Generate width classes
+/// @param $min - Minimum width value
+/// @param $max - Maximum width value
+/// @param $step - Step value
+@mixin generateWidthClasses($min: 10, $max: 100, $step: 10) {
+  @for $value from $min through $max {
+    @if ($value - $min) % $step == 0 {
+      .w-#{$value}p {
+        width: #{$value}#{'%'};
+      }
+    }
+  }
+}
+
+/// Generate height classes
+/// @param $min - Minimum height value
+/// @param $max - Maximum height value
+/// @param $step - Step value
+@mixin generateHeightClasses($min: 10, $max: 100, $step: 10) {
+  @for $value from $min through $max {
+    @if ($value - $min) % $step == 0 {
+      .h-#{$value}p {
+        height: #{$value}#{'%'};
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+@import './variables';
+
+$app-primary: mat.m2-define-palette(mat.$m2-grey-palette);
+$app-accent: mat.m2-define-palette(mat.$m2-indigo-palette);
+$app-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$mat-light-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $app-primary,
+      accent: $app-accent,
+      warn: $app-warn,
+    ),
+  )
+);
+
+$mat-dark-theme: mat.m2-define-dark-theme(
+  (
+    color: (
+      primary: $app-primary,
+      accent: $app-accent,
+      warn: $app-warn,
+    ),
+  )
+);
+
+.shms-light-theme {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: $text-color;
+    box-shadow: none;
+  }
+  @include mat.all-component-colors($mat-light-theme);
+}
+.shms-dark-theme {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: $text-dark-color;
+    box-shadow: none;
+  }
+  @include mat.all-component-colors($mat-dark-theme);
+}

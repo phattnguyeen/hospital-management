@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+@charset "UTF-8";
+@use '@angular/material' as mat;
+
+@import '@mdi/font/css/materialdesignicons.css';
+@import 'bootstrap/scss/bootstrap.scss';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+@include mat.core();
+
+// Base styles
+@import './styles/theme';
+@import './styles/bootstrap';
+@import './styles/typography';
+@import './styles/size';
+@import './styles/spacing';
+
+//common style
+@import './styles/common/common.scss';
+
+// Invoke mixins
+@include generateFontSizeClasses(8, 100);
+@include generateSizeClasses(width, 12, 300);
+@include generateSizeClasses(height, 12, 300);
+@include generateWidthClasses();
+@include generateHeightClasses();
+@include generateMarginClasses(0, 100);
+@include generatePaddingClasses(0, 100);

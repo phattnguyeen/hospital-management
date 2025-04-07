@@ -12,6 +12,7 @@ export class WriteableRepository implements IWriteableRepository {
   protected readonly defaultOptions = {
     headers: {
       'Time-Zone': Intl.DateTimeFormat().resolvedOptions().timeZone,
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
   };
 

@@ -3,5 +3,7 @@
         "title": "Đăng nhập",
         "phone": "Số điện thoại",
         "password": "Mật khẩu"
-    }
+    },
+    "vietnamese": "Tiếng việt",
+    "english": "Tiếng anh"
 }

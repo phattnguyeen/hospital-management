@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, inject, viewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, ElementRef, inject, OnDestroy, OnInit, signal, viewChild } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateModule } from '@ngx-translate/core';
@@ -11,37 +11,47 @@ import { SignInContext } from './sign-in.context';
 import { ViewConstant } from './view.constant';
 import { explicitEffect } from 'ngxtension/explicit-effect';
 import lottie from 'lottie-web';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'hms-sign-in',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatInputModule, MatSlideToggleModule, MatButtonModule, ReactiveFormsModule, TranslateModule],
+  imports: [CommonModule, FormsModule, MatSelectModule, MatInputModule, MatSlideToggleModule, MatButtonModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
   providers: [{ provide: VIEW_CONTEXT, useExisting: SignInContext }],
 })
-export class SignInComponent extends ViewComponnet {
+export class SignInComponent extends ViewComponnet implements OnInit, OnDestroy {
+  private readonly _switchLanguagesService = inject(SwitchLanguagesService);
   private readonly logoContainer = viewChild<ElementRef>('logoContainer');
 
-  username: string = '';
-  password: string = '';
-  errorMessage: string | null = null;
+  readonly errorMessage = signal<string>('');
 
-  isEnglish = false;
+  readonly isEnglish = false;
 
-  private readonly _switchLanguagesService = inject(SwitchLanguagesService);
+  public readonly signInForm = new FormGroup({
+    selected: new FormControl('vi'),
+    phone: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(255)]),
+  });
 
-  ngAfterViewInit() {}
-
-  public get logo() {
-    return this._context.getItem({ id: ViewConstant.LOGO });
-  }
-
-  public login() {
+  ngOnInit(): void {
     this._context.getViewData({ id: ViewConstant.LOGO });
   }
 
-  eds = explicitEffect([this.logo], ([logo]) => {
+  public login() {
+    this._context.save({ id: ViewConstant.LOGIN, username: this.signInForm.controls.phone.value, password: this.signInForm.controls.password.value }, (error) => {
+      if (error) {
+        this.errorMessage.set(error);
+      }
+    });
+  }
+
+  private eds = explicitEffect([this._context.getItem({ id: ViewConstant.LOGO }), this._context.getItem({ id: ViewConstant.SUCCESS })], ([logo, success]) => {
+    if (success) {
+      this._router.navigate(['/home'], { replaceUrl: true });
+      return;
+    }
     if (logo) {
       lottie.loadAnimation({
         container: this.logoContainer()?.nativeElement,
@@ -56,5 +66,9 @@ export class SignInComponent extends ViewComponnet {
   public toggleLanguage(isEnglish: boolean) {
     const lang = isEnglish ? ViewConstantLanguages.ENGLISH : ViewConstantLanguages.VIETNAMESE;
     this._switchLanguagesService.setLanguage(lang);
+  }
+
+  ngOnDestroy(): void {
+    this.eds.destroy();
   }
 }

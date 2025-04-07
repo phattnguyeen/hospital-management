@@ -30,44 +30,52 @@ This is the frontend application for the Hospital Management System. It is built
 ### Installation
 
 1. Clone the repository:
-    ```bash
-    git clone https://github.com/yourusername/hospital-management-frontend.git
-    ```
+   ```bash
+   git clone https://github.com/yourusername/hospital-management-frontend.git
+   ```
 2. Navigate to the project directory:
-    ```bash
-    cd hospital-management-frontend
-    ```
+   ```bash
+   cd hospital-management-frontend
+   ```
 3. Install dependencies:
-    ```bash
-    npm install
-    ```
-    or
-    ```bash
-    yarn install
-    ```
+   ```bash
+   npm install
+   ```
+   or
+   ```bash
+   yarn
+   ```
 
 ### Running the Application
 
 1. Start the development server:
-    ```bash
-    npm start
-    ```
-    or
-    ```bash
-    yarn start
-    ```
+
+```bash
+  yarn run build:all
+
+```
+
+```bash
+ng serve --project=zhms.client
+
+```
+
 2. Open your browser and navigate to `http://localhost:4200`.
 
 ### Building for Production
 
 1. Build the application:
-    ```bash
-    npm run build
-    ```
-    or
-    ```bash
-    yarn build
-    ```
+
+```bash
+npm run build
+```
+
+or
+
+```bash
+yarn build
+```
+
 2. The production-ready files will be in the `dist` directory.
 
 ## Contributing

@@ -26,9 +26,7 @@ export class RequestMapper<T> {
         if (typeof value === 'object' && value !== null) {
           if (Array.isArray(value)) {
             if (this._typeList && this._typeList[propertyKey]) {
-              value = value.map((item) =>
-                new RequestMapper(this._typeList[propertyKey]).map(item)
-              );
+              value = value.map((item) => new RequestMapper(this._typeList[propertyKey]).map(item));
             }
           } else {
             if (this._typeList && this._typeList[propertyKey]) {
@@ -40,6 +38,17 @@ export class RequestMapper<T> {
         requestBody[snakeCaseKey] = value;
       }
     }
-    return requestBody;
+
+    return RequestMapper.toUrlEncoded(requestBody);
+  }
+
+  private static toUrlEncoded(requestBody: Record<string, any>): string {
+    const urlEncodedData = new URLSearchParams();
+    for (const key in requestBody) {
+      if (requestBody.hasOwnProperty(key)) {
+        urlEncodedData.append(key, String(requestBody[key]));
+      }
+    }
+    return urlEncodedData.toString();
   }
 }

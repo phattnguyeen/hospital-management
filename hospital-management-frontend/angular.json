@@ -382,6 +382,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "lottie-web"
+            ],
             "outputPath": "dist/zhms.client",
             "index": "projects/zhms.client/src/index.html",
             "browser": "projects/zhms.client/src/main.ts",
@@ -398,7 +401,9 @@
             ],
             "styles": [
               "projects/zhms.client/src/styles.scss",
-              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
+              "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css"
             ],
             "scripts": []
           },

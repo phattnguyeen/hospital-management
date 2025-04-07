@@ -16,6 +16,7 @@ export const routes: Routes = [
   {
     path: 'home',
     loadComponent: () => import('./views/home/home.component').then((c) => c.HomeComponent),
+    canActivate: [AuthorizationGuard],
   },
   { path: '**', redirectTo: '/page-not-found' },
 ];

@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-doctor-nav',
+  selector: 'hms-doctor-nav',
+  standalone: true,
   templateUrl: './doctor-nav.component.html',
-  styleUrls: ['./doctor-nav.component.scss']
+  styleUrls: ['./doctor-nav.component.scss'],
 })
 export class DoctorNavComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

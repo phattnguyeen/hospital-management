@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class AssetReadableRepository extends ReadableRepository implements IAssetReadableRepository {
   getAsset(request: AssetRequest): Observable<any> {
-    const endPoint = `assets/json/${request.name}`;
+    const endPoint = `./images/json/${request.name}`;
     return this.findAll(endPoint);
   }
 }

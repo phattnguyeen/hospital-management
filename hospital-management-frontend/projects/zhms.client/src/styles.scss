@@ -8,6 +8,10 @@
 
 @include mat.core();
 
+//Carousel
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+
 // Base styles
 @import './styles/theme';
 @import './styles/bootstrap';
@@ -17,6 +21,8 @@
 
 //common style
 @import './styles/common/common.scss';
+@import './styles/common/navs/navs.scss';
+@import './styles/common/utilities/utils.scss';
 
 // Invoke mixins
 @include generateFontSizeClasses(8, 100);

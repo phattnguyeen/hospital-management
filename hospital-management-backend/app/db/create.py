@@ -8,7 +8,7 @@ import random
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.sql import func
 
-DATABASE_URL = "postgresql://phatnguyen:fFqMCm0RqQwdwq0rujX4IyNpHcCg8DA2@dpg-cvameh5svqrc73bvpveg-a.oregon-postgres.render.com/hospitalmanagement_txr6"
+DATABASE_URL = "postgresql://hmsdb_owner:npg_9IzgxcpTou6D@ep-proud-snowflake-a5e4oyfd-pooler.us-east-2.aws.neon.tech/hmsdb?sslmode=require"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -232,7 +232,7 @@ def drop_tables(engine):
 
 if __name__ == "__main__":
     # Uncomment the line below to drop all tables before creating them again
-    #drop_tables()
-    create_tables()
+    drop_tables(engine)
+    #create_tables()
 
 

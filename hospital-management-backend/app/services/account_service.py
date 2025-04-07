@@ -16,11 +16,6 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 load_dotenv(".env")  # Load environment variables from .env file
 
-# # Twilio credentials (replace with your actual credentials)
-# TWILIO_ACCOUNT_SID = 'AC09bf04efa93ae42365980b3b2361d2df'
-# TWILIO_AUTH_TOKEN = '0315a992197dd70559d1e8b15a560ab1'
-# TWILIO_PHONE_NUMBER = '+12318880770'  # Replace with your verified Twilio phone number
-
 #Twilio credentials loaded from environment variables
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")

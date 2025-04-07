@@ -12,6 +12,7 @@ import { ViewConstant } from './view.constant';
 import { explicitEffect } from 'ngxtension/explicit-effect';
 import lottie from 'lottie-web';
 import { MatSelectModule } from '@angular/material/select';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'hms-sign-in',
@@ -35,6 +36,8 @@ export class SignInComponent extends ViewComponnet implements OnInit, OnDestroy 
     password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(255)]),
   });
 
+  private readonly selected = toSignal(this.signInForm.controls.selected.valueChanges);
+
   ngOnInit(): void {
     this._context.getViewData({ id: ViewConstant.LOGO });
   }
@@ -47,7 +50,8 @@ export class SignInComponent extends ViewComponnet implements OnInit, OnDestroy 
     });
   }
 
-  private eds = explicitEffect([this._context.getItem({ id: ViewConstant.LOGO }), this._context.getItem({ id: ViewConstant.SUCCESS })], ([logo, success]) => {
+  private eds = explicitEffect([this._context.getItem({ id: ViewConstant.LOGO }), this._context.getItem({ id: ViewConstant.SUCCESS }), this.selected], ([logo, success, selected]) => {
+    if (selected) this.toggleLanguage(selected);
     if (success) {
       this._router.navigate(['/home'], { replaceUrl: true });
       return;
@@ -63,8 +67,7 @@ export class SignInComponent extends ViewComponnet implements OnInit, OnDestroy 
     }
   });
 
-  public toggleLanguage(isEnglish: boolean) {
-    const lang = isEnglish ? ViewConstantLanguages.ENGLISH : ViewConstantLanguages.VIETNAMESE;
+  public toggleLanguage(lang: string) {
     this._switchLanguagesService.setLanguage(lang);
   }
 

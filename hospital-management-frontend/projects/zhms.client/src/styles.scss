@@ -8,10 +8,6 @@
 
 @include mat.core();
 
-//Carousel
-@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
-@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
-
 // Base styles
 @import './styles/theme';
 @import './styles/bootstrap';

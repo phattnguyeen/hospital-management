@@ -53,7 +53,7 @@ export class SignInComponent extends ViewComponnet implements OnInit, OnDestroy 
   private eds = explicitEffect([this._context.getItem({ id: ViewConstant.LOGO }), this._context.getItem({ id: ViewConstant.SUCCESS }), this.selected], ([logo, success, selected]) => {
     if (selected) this.toggleLanguage(selected);
     if (success) {
-      this._router.navigate(['/home'], { replaceUrl: true });
+      this._router.navigate(['/dashboard'], { replaceUrl: true });
       return;
     }
     if (logo) {

@@ -2,7 +2,10 @@
     "sign-in": {
         "title": "Đăng nhập",
         "phone": "Số điện thoại",
-        "password": "Mật khẩu"
+        "password": "Mật khẩu",
+        "validator": {
+            "required_phone": "Vui lòng nhập số điện thoại"
+        }
     },
     "vietnamese": "Tiếng việt",
     "english": "Tiếng anh"

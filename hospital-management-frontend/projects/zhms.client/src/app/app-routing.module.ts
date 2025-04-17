@@ -7,9 +7,9 @@ export const routes: Routes = [
     path: 'sign-in',
     loadComponent: () => import('./views/sign-in/sign-in.component').then((c) => c.SignInComponent),
   },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {
-    path: '',
+    path: 'dashboard',
     loadComponent: () => import('./views/dashboard/dashboard.component').then((c) => c.DashboardComponent),
     canActivate: [AuthorizationGuard],
   },

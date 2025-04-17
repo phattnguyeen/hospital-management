@@ -39,9 +39,7 @@
                   <mat-label style="font-size: 14px">{{ 'sign-in.phone' | translate }}</mat-label>
                   <mat-form-field class="w-100">
                     <input matInput required formControlName="phone" autocomplete="phone" class="fs-12px" type="email" />
-                    <mat-error class="fs-12px">{{ 'sign_in.validate.phone' }}</mat-error>
-                    <mat-error>{{ 'sign_in.validate.phone_required' }}</mat-error>
-                    <mat-error>{{ 'sign_in.validate.phone_max_length' }}</mat-error>
+                    <mat-error *ngIf="signInForm.get('phone')?.hasError('required')" class="fs-12px">{{ 'sign-in.validate.required_phone' }}</mat-error>
                   </mat-form-field>
                 </div>
 

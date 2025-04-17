@@ -4,7 +4,7 @@ import { AuthorizationGuard } from '@infrastructure/authorization';
 
 export const routes: Routes = [
   {
-    path: 'sign-in',
+    path: 'login',
     loadComponent: () => import('./views/sign-in/sign-in.component').then((c) => c.SignInComponent),
   },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },

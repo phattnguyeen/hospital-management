@@ -8,7 +8,7 @@ ROLE_CHOICES = ['patient', 'doctor', 'employee', 'admin']
 
 # Schema for creating an account
 class AccountCreate(BaseModel):
-    password: str = Field(..., max_length=255)  # Password hash to be used
+    #password: str = Field(..., max_length=255)  # Password hash to be used
     #role: str = Field(..., max_length=50)  # Validate role directly with regex
     phone_number: str = Field(..., max_length=20)  # Unique phone number for the account
     is_verified: Optional[bool] = Field(default=False)  # Optional verification status
